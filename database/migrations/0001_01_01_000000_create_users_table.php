@@ -17,6 +17,16 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+                // Roles & access
+            $table->enum('role', ['user', 'admin'])->default('user');
+            $table->enum('status', ['active', 'suspended', 'banned'])->default('active');
+
+            // Verification & security
+            $table->timestamp('last_login_at')->nullable();
+
+            // KYC (future use)
+            $table->enum('kyc_status', ['pending', 'verified', 'rejected'])->default('pending');
+
             $table->rememberToken();
             $table->timestamps();
         });
